@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>王佳伟</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f5f0, #f8f4e6, #faf3dd);
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            color: white;
+            width: 100%;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .description {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .scroll-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            margin:0 0;
+            padding: 20px 0;
+        }
+        
+        .scroll-container {
+			width: 100%;
+			overflow: hidden;
+			position: relative;
+			margin: 40px 0;
+			padding: 20px 0;
+			/* 边缘渐变遮罩 */
+			mask-image: linear-gradient(
+				90deg,
+				transparent 0%,
+				white 15%,
+				white 85%,
+				transparent 100%
+			);
+			-webkit-mask-image: linear-gradient(
+				90deg,
+				transparent 0%,
+				white 15%,
+				white 85%,
+				transparent 100%
+			);
+		}
+		
+		.scroll-track {
+			display: flex;
+			width: max-content;
+			animation: scroll 30s linear infinite;
+		}
+        
+        .logo-item {
+			flex: 0 0 auto;
+			width: 220px;
+			height: 150px;
+			margin: 0 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: transparent;
+			/* 默认状态：正常显示 */
+			transform: scale(1);
+			filter: blur(0);
+			opacity: 1;
+			/* 动态模糊缩小动画 */
+			/* animation: logo-effect 6s linear infinite; */
+		}
+		
+
+		.scroll-track:hover .logo-item {
+			transform: scale(1);
+			filter: blur(0);
+			opacity: 1;
+		}
+        
+		/* 悬停时突出显示 */
+		.logo-item:hover {
+			transform: scale(1.1) !important;
+			filter: blur(0) !important;
+			opacity: 1 !important;
+			z-index: 10;
+			animation-play-state: paused;
+		}
+        .logo-item img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.2));
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+        
+        .feature h3 {
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: white;
+            margin-top: 50px;
+            width: 100%;
+        }
+		
+		/* Logo动态模糊缩小动画 */
+		@keyframes logo-effect {
+			0%, 100% {
+				transform: scale(0.7);
+				filter: blur(2px);
+				opacity: 0.7;
+			}
+			50% {
+				transform: scale(1);
+				filter: blur(0);
+				opacity: 1;
+			}
+		}
+        
+		@keyframes scroll {
+			0% { transform: translateX(0); }
+			100% { transform: translateX(-50%); }
+		}
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="scroll-container">
+            <div class="scroll-track">
+                <!-- SVG logos will be inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const scrollTrack = document.querySelector('.scroll-track');
+            
+            // SVG文件路径（根据实际文件路径修改）
+            const svgFiles = [
+                './frames/frame_001.svg',
+                './frames/frame_002.svg',
+                './frames/frame_003.svg',
+                './frames/frame_004.svg',
+                './frames/frame_005.svg',
+                './frames/frame_006.svg',
+                './frames/frame_007.svg',
+                './frames/frame_008.svg',
+                './frames/frame_009.svg'
+            ];
+
+            // 创建SVG logo元素
+            function createLogoElements() {
+                // 添加两轮logo以实现无缝循环
+                for (let i = 0; i < 2; i++) {
+                    svgFiles.forEach((file, index) => {
+                        const logoItem = document.createElement('div');
+                        logoItem.className = 'logo-item';
+                        
+                        const img = document.createElement('img');
+                        img.src = file;
+                        img.alt = `SVG Logo ${index + 1}`;
+                        
+                        logoItem.appendChild(img);
+                        scrollTrack.appendChild(logoItem);
+                    });
+                }
+            }
+            
+            createLogoElements();
+        });
+    </script>
+</body>
+</html>
